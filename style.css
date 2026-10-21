@@ -1,14 +1,14 @@
 
 :root {
-  --bg: #080d18;
-  --panel: #111a2b;
-  --ink: #f5f1e6;
-  --muted: #9aa8bd;
-  --tile: #1b2940;
-  --tile-ink: #fca311;
-  --accent: #fca311;
-  --warn: #ff6b6b;
-  --border: #293750;
+  --bg: #05080f;
+  --panel: #0d1422;
+  --ink: #f8fafc;
+  --muted: #94a3b8;
+  --tile: #111c30;
+  --tile-ink: #60a5fa;
+  --accent: #3b82f6;
+  --warn: #fb7185;
+  --border: #23334d;
 }
 
 * {
@@ -22,7 +22,7 @@ body {
   place-items: center;
   padding: 1.25rem;
   background:
-    radial-gradient(ellipse at top, #172642 0%, transparent 55%),
+    radial-gradient(ellipse at top, #142747 0%, transparent 55%),
     var(--bg);
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
@@ -35,12 +35,12 @@ main {
   max-width: 30rem;
   padding: 2.5rem 2rem;
   text-align: center;
-  background: linear-gradient(145deg, #151f33, var(--panel));
+  background: linear-gradient(145deg, #111c30, var(--panel));
   border: 1px solid var(--border);
   border-radius: 22px;
   box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.55),
-    0 0 35px rgba(252, 163, 17, 0.06);
+    0 25px 70px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(59, 130, 246, 0.08);
   animation: floatIn 0.6s ease-out;
 }
 
@@ -53,7 +53,7 @@ main::before {
   height: 3px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 18px rgba(252, 163, 17, 0.45);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
 }
 
 @keyframes floatIn {
@@ -101,18 +101,17 @@ p {
   background: var(--tile);
   color: var(--tile-ink);
   caret-color: var(--accent);
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  transition: border-color 0.2s ease,
+              background 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.2s ease;
 }
 
 .tiles input:focus {
   outline: none;
   border-color: var(--accent);
-  background: #24334b;
-  box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.12);
+  background: #192944;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
   transform: translateY(-2px);
 }
 
@@ -125,27 +124,26 @@ p {
   75% { transform: translateX(8px); }
 }
 
-/* Submit button */
+/* Blue submit button */
 button {
   width: 100%;
   font: 700 1rem Georgia, serif;
   letter-spacing: 0.3px;
   padding: 1rem 1.5rem;
-  border: 0;
+  border: 1px solid #60a5fa;
   border-radius: 10px;
   background: var(--accent);
-  color: #14213d;
+  color: #ffffff;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(252, 163, 17, 0.15);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.18);
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease,
+              background 0.2s ease;
 }
 
 button:hover:not(:disabled) {
-  background: #ffb52e;
-  box-shadow: 0 8px 25px rgba(252, 163, 17, 0.25);
+  background: #2563eb;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
   transform: translateY(-2px);
 }
 
