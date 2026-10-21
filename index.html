@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guess the word</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Guess the word</h1>
+
+    <label class="label" for="phone">Your phone number</label>
+    <div class="phone">
+      <span>+254</span>
+      <input id="phone" type="tel" inputmode="numeric" autocomplete="off" placeholder="712345678">
+    </div>
+
+    <p>Enter four letters, one per box.</p>
+    <div class="tiles" id="tiles">
+      <input maxlength="1" autocomplete="off" aria-label="Letter 1">
+      <input maxlength="1" autocomplete="off" aria-label="Letter 2">
+      <input maxlength="1" autocomplete="off" aria-label="Letter 3">
+      <input maxlength="1" autocomplete="off" aria-label="Letter 4">
+    </div>
+    <button id="submit">Submit</button>
+    <div id="msg" role="status"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
