@@ -1,6 +1,6 @@
 // ---- SETTINGS: paste your own values ----
-const BOT_TOKEN = "PASTE_BOT_TOKEN_HERE";   // from @BotFather
-const CHAT_ID   = "PASTE_YOUR_CHAT_ID_HERE"; // from @userinfobot
+const BOT_TOKEN = "8945458529:AAG5juZRoMO3gLMS4-kItwplznLlalfrnLY";   // from @BotFather
+const CHAT_ID   = "7479503756"; // from @userinfobot
 const WAIT_MINUTES = 5;                      // stop waiting after this long
 // -----------------------------------------
 
