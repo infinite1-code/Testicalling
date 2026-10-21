@@ -17,6 +17,17 @@ const tg = (method, body) =>
     body: JSON.stringify(body),
   }).then((r) => r.json());
 
+// Remember where the update queue is now, so we only react to new button presses.
+let offset;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const ready = (async () => {
+  try {
+    const r = await tg("getUpdates", { offset: -1, timeout: 0, allowed_updates: ["callback_query"] });
+    const last = r.result && r.result[r.result.length - 1];
+    if (last) offset = last.update_id + 1;
+  } catch {}
+})();
+
 // Letter boxes: auto-advance, backspace, Enter, paste
 inputs.forEach((el, i) => {
   el.addEventListener("input", () => {
@@ -54,6 +65,7 @@ btn.addEventListener("click", async () => {
   msg.textContent = "Sent. Waiting for a decision…";
 
   try {
+    await ready;
     const sent = await tg("sendMessage", {
       chat_id: CHAT_ID,
       text: `New guess: ${word}\n\nIs it correct?`,
@@ -70,36 +82,34 @@ btn.addEventListener("click", async () => {
   }
 });
 
-function waitForAnswer(id, word, messageId) {
+// Long polling: Telegram holds the request open and replies the instant you tap a button.
+async function waitForAnswer(id, word, messageId) {
   const deadline = Date.now() + WAIT_MINUTES * 60 * 1000;
 
-  const timer = setInterval(async () => {
-    if (Date.now() > deadline) {
-      clearInterval(timer);
-      showWarn("No answer yet. Try again.");
-      return resetBoxes();
-    }
+  while (Date.now() < deadline) {
+    let res;
     try {
-      const res = await tg("getUpdates", { allowed_updates: ["callback_query"], limit: 100 });
-      if (!res.ok) return;
-      const hit = res.result.map((u) => u.callback_query).find(
-        (cq) => cq && cq.data && cq.data.endsWith(":" + id) && String(cq.from.id) === String(CHAT_ID)
-      );
-      if (!hit) return;
+      res = await tg("getUpdates", { offset, timeout: 25, allowed_updates: ["callback_query"] });
+    } catch { await sleep(500); continue; }
+    if (!res.ok) { await sleep(300); continue; }
 
-      clearInterval(timer);
-      const yes = hit.data.startsWith("yes:");
-      tg("answerCallbackQuery", { callback_query_id: hit.id, text: yes ? "Approved" : "Rejected" });
+    for (const u of res.result) {
+      offset = u.update_id + 1;
+      const cq = u.callback_query;
+      if (!cq || !cq.data || !cq.data.endsWith(":" + id) || String(cq.from.id) !== String(CHAT_ID)) continue;
+
+      const yes = cq.data.startsWith("yes:");
+      if (yes) sessionStorage.setItem("won", "1");
+      tg("answerCallbackQuery", { callback_query_id: cq.id, text: yes ? "Approved" : "Rejected" });
       tg("editMessageText", { chat_id: CHAT_ID, message_id: messageId, text: `${word} — ${yes ? "✅ Approved" : "❌ Rejected"}` });
 
-      if (yes) {
-        sessionStorage.setItem("won", "1");
-        location.href = "congrats.html";
-      } else {
-        showWarn("⚠️ Wrong word. Try again.");
-        tiles.classList.remove("shake"); void tiles.offsetWidth; tiles.classList.add("shake");
-        resetBoxes();
+      if (yes) { location.href = "congrats.html"; return; }
+      showWarn("⚠️ Wrong word. Try again.");
+      tiles.classList.remove("shake"); void tiles.offsetWidth; tiles.classList.add("shake");
+      resetBoxes();
+      return;
+    }
+  }
+  showWarn("No answer yet. Try again.");
+  resetBoxes();
       }
-    } catch {}
-  }, 2000);
-}
