@@ -31,7 +31,7 @@ const ready = (async () => {
 // Letter boxes: auto-advance, backspace, Enter, paste
 inputs.forEach((el, i) => {
   el.addEventListener("input", () => {
-    el.value = el.value.replace(/[^a-zA-Z]/g, "").slice(0, 1);
+    el.value = el.value.replace(/[^0-9]/g, "").slice(0, 1);
     if (el.value && inputs[i + 1]) inputs[i + 1].focus();
   });
   el.addEventListener("keydown", (e) => {
