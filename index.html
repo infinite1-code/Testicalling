@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +8,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-<header>
-  <span class="eco">Eco</span><span class="cash">Cash</span>
-</header>
-  
-  <main>
+  <div class="top">
+    <div class="brand">🔤</div>
+  </div>
+ 
+  <main class="card">
     <h1>Guess the word</h1>
-
+ 
     <label class="label" for="phone">Your phone number</label>
     <div class="phone">
       <span>+254</span>
       <input id="phone" type="tel" inputmode="numeric" autocomplete="off" placeholder="712345678">
     </div>
-
+ 
     <p>Enter four letters, one per box.</p>
     <div class="tiles" id="tiles">
       <input maxlength="1" autocomplete="off" aria-label="Letter 1">
@@ -34,3 +34,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+ 
