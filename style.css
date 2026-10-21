@@ -1,21 +1,116 @@
-:root { --bg:#14213d; --ink:#f5f1e6; --tile:#fca311; --tile-ink:#14213d; --warn:#ff6b6b; }
-* { box-sizing: border-box; }
-body { margin:0; min-height:100vh; display:grid; place-items:center; padding:1.5rem;
-       background:var(--bg); color:var(--ink); font-family:Georgia, "Times New Roman", serif; }
-main { width:100%; max-width:30rem; text-align:center; }
-h1 { font-size:2rem; margin:0 0 .5rem; }
-p { margin:0 0 1.5rem; opacity:.85; }
-.tiles { display:flex; gap:.5rem; justify-content:center; margin-bottom:1.5rem; }
-.tiles input { width:3.2rem; height:4rem; text-align:center; text-transform:uppercase;
-               font:700 1.8rem Georgia, serif; border:3px solid transparent; border-radius:6px;
-               background:var(--tile); color:var(--tile-ink); }
-.tiles input:focus { outline:none; border-color:var(--ink); }
-.tiles.shake { animation:shake .4s; }
-@keyframes shake { 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
-button { font:700 1.1rem Georgia, serif; padding:.8rem 2rem; border:0; border-radius:6px;
-         background:var(--ink); color:var(--bg); cursor:pointer; }
-button:disabled { opacity:.5; cursor:wait; }
-#msg { min-height:3rem; margin-top:1.25rem; }
-.warn { color:var(--warn); font-weight:700; }
-@media (max-width:420px) { .tiles input { width:2.5rem; height:3.4rem; font-size:1.5rem; } }
-@media (prefers-reduced-motion:reduce) { .tiles.shake { animation:none; } }
+
+:root {
+  --bg: #14213d;
+  --ink: #f5f1e6;
+  --tile: #fca311;
+  --tile-ink: #14213d;
+  --warn: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+main {
+  width: 100%;
+  max-width: 30rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+
+p {
+  margin: 0 0 1.5rem;
+  opacity: 0.85;
+}
+
+.tiles {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tiles input {
+  width: 3.2rem;
+  height: 4rem;
+  text-align: center;
+  text-transform: uppercase;
+  font: 700 1.8rem Georgia, serif;
+  border: 3px solid transparent;
+  border-radius: 6px;
+  background: var(--tile);
+  color: var(--tile-ink);
+}
+
+.tiles input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.tiles.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-8px);
+  }
+
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+button {
+  font: 700 1.1rem Georgia, serif;
+  padding: 0.8rem 2rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+#msg {
+  min-height: 3rem;
+  margin-top: 1.25rem;
+}
+
+.warn {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .tiles input {
+    width: 2.5rem;
+    height: 3.4rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiles.shake {
+    animation: none;
+  }
+}
