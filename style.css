@@ -1,10 +1,10 @@
 
 :root {
-  --blue: #1038e8;
+  --blue: #1239e8;
   --bright-blue: #073cff;
-  --border-blue: #5158d9;
-  --login-blue: #68a4cf;
-  --text: #303030;
+  --outline: #5758d8;
+  --button-blue: #68a4cf;
+  --ink: #303030;
 }
 
 * {
@@ -13,7 +13,6 @@
 
 html {
   min-height: 100%;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -22,18 +21,17 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  background: var(--blue);
-  color: var(--text);
+  background: white;
+  color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Remove the original decorative header */
+/* Remove the old header */
 .top {
   display: none;
 }
 
-/* White upper panel with the curved bottom */
+/* Main white section */
 .card {
   position: relative;
   z-index: 1;
@@ -41,91 +39,94 @@ body {
   max-width: none;
   flex: 1 0 auto;
   margin: 0;
-  padding: clamp(200px, 22vh, 350px) 6.3% 65px;
-  background: #fff;
-  color: var(--text);
+  padding: clamp(140px, 22vh, 260px) 6.3% 50px;
+  background: white;
+  color: var(--ink);
   text-align: center;
-  border-radius: 0 0 50% 50% / 0 0 13% 13%;
+  border-radius: 0 0 50% 50% / 0 0 12% 12%;
 }
 
 h1 {
-  margin: 0 0 clamp(105px, 14vh, 160px);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(34px, 7.5vw, 48px);
-  font-weight: 400;
+  margin: 0 0 clamp(100px, 15vh, 155px);
+  font-size: clamp(36px, 7vw, 48px);
   line-height: 1.2;
+  font-weight: 400;
 }
 
+/* Optional helper text */
 .label,
 .card > p {
   display: none;
 }
 
-/* Phone number box */
+/* Phone field */
 .phone {
-  width: 100%;
-  height: clamp(80px, 17vw, 140px);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: clamp(10px, 2.5vw, 24px);
-  padding: 12px clamp(14px, 6vw, 48px);
-  margin: 0 0 clamp(80px, 10vh, 125px);
+  width: 100%;
+  height: clamp(76px, 17vw, 140px);
+  gap: 12px;
+  padding: 12px 22px;
+  margin: 0 0 clamp(80px, 10vh, 120px);
   border: 3px solid #171717;
   border-radius: 16px;
-  background: #fff;
+  background: white;
 }
 
 .phone span {
-  flex-shrink: 0;
-  font-size: clamp(18px, 4.2vw, 30px);
-  font-weight: 700;
+  flex: 0 0 auto;
   white-space: nowrap;
+  font-size: clamp(17px, 4vw, 27px);
+  font-weight: 700;
 }
 
 .phone input {
-  flex: 1;
+  display: block;
+  flex: 1 1 0;
+  width: 0;
   min-width: 0;
-  width: 100%;
-  padding: 10px 0;
-  border: 0;
-  outline: 0;
+  padding: 8px 0;
+  border: none;
+  outline: none;
   background: transparent;
   color: #111;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(18px, 4.2vw, 30px);
-  font-weight: 700;
-  letter-spacing: 0;
+  font: 700 clamp(17px, 4vw, 27px) Arial, sans-serif;
 }
 
 .phone input:focus {
   outline: none;
-  border: 0;
 }
 
-/* Four code boxes */
+/* Four properly sized letter boxes */
 .tiles {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  gap: clamp(7px, 1.5vw, 13px);
-  margin: 0 auto clamp(105px, 15vh, 150px);
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto clamp(100px, 15vh, 150px);
 }
 
 .tiles input {
+  display: block;
   flex: 0 1 86px;
-  width: 11vw;
-  max-width: 86px;
+  width: 68px;
   min-width: 0;
-  height: clamp(65px, 12vw, 94px);
+  max-width: 86px;
+  height: clamp(68px, 12vw, 94px);
+  margin: 0;
   padding: 0;
-  border: 3px solid var(--border-blue);
+  appearance: none;
+  -webkit-appearance: none;
+  border: 3px solid var(--outline);
   border-radius: 17px;
-  background: #fff;
-  color: var(--text);
+  background: white;
+  color: var(--ink);
   text-align: center;
   text-transform: uppercase;
-  font: 700 1.6rem Arial, Helvetica, sans-serif;
+  font: 700 25px Arial, sans-serif;
   outline: none;
 }
 
@@ -142,19 +143,20 @@ h1 {
   75% { transform: translateX(7px); }
 }
 
-/* Login button */
+/* Submit button */
 #submit {
   display: block;
+  position: relative;
   width: 62%;
   max-width: 390px;
-  min-height: 74px;
+  min-height: 70px;
   margin: 0 auto;
-  padding: 12px 18px;
+  padding: 12px;
   border: 3px solid #7164e6;
   border-radius: 22px;
-  background: var(--login-blue);
-  color: #fff;
-  font: 700 clamp(22px, 4.5vw, 30px) Arial, Helvetica, sans-serif;
+  background: var(--button-blue);
+  color: white;
+  font: 700 clamp(22px, 4.5vw, 30px) Arial, sans-serif;
   cursor: pointer;
 }
 
@@ -174,75 +176,67 @@ h1 {
   font-weight: 700;
 }
 
-/* Blue footer */
+/* Blue footer with curved white transition */
 .footer {
   position: relative;
   z-index: 2;
   flex: 0 0 auto;
   width: 100%;
-  min-height: 30vh;
-  min-height: 30dvh;
-  padding: 45px 6.3% clamp(28px, 4vh, 55px);
+  padding: 35px 6.3% 28px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 32px;
+  align-items: stretch;
+  gap: 28px;
   background: var(--blue);
-  color: #fff;
+  color: white;
 }
 
 .footer-message {
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
-  font-size: clamp(16px, 3.6vw, 23px);
+  font-size: clamp(16px, 3.7vw, 23px);
   line-height: 1.8;
   font-weight: 700;
 }
 
 .footer-buttons {
   display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: clamp(10px, 2.5vw, 20px);
   width: 100%;
+  gap: 12px;
 }
 
 .footer-buttons button {
   flex: 1 1 0;
   min-width: 0;
-  min-height: clamp(62px, 12vw, 96px);
-  padding: 12px 8px;
-  border: 0;
-  border-radius: 16px;
-  background: #fff;
+  min-height: 64px;
+  padding: 10px 6px;
+  border: none;
+  border-radius: 15px;
+  background: white;
   color: #292929;
-  font: 500 clamp(15px, 3.7vw, 24px)
-        Arial, Helvetica, sans-serif;
+  font: 500 clamp(14px, 3.6vw, 23px) Arial, sans-serif;
   cursor: pointer;
 }
 
-/* Narrow mobile screens */
+/* Mobile layout */
 @media (max-width: 420px) {
   .card {
-    padding-top: 26vh;
-    padding-top: 26dvh;
-    padding-left: 6.3%;
-    padding-right: 6.3%;
-    padding-bottom: 55px;
+    padding: 22vh 6.3% 45px;
+    padding-top: 22dvh;
   }
 
   h1 {
-    margin-bottom: 13vh;
-    font-size: 2.2rem;
+    margin-bottom: 12vh;
+    font-size: 36px;
   }
 
   .phone {
     height: 76px;
-    gap: 10px;
     padding: 10px 14px;
-    margin-bottom: 9vh;
-    border-radius: 14px;
+    gap: 10px;
+    margin-bottom: 10vh;
+    border-radius: 15px;
   }
 
   .phone span,
@@ -256,11 +250,10 @@ h1 {
   }
 
   .tiles input {
-    flex-basis: 0;
+    flex: 0 1 68px;
     width: 21%;
-    max-width: 72px;
     height: 68px;
-    border-radius: 15px;
+    border-radius: 14px;
   }
 
   #submit {
@@ -270,8 +263,8 @@ h1 {
   }
 
   .footer {
-    padding: 35px 6.3% 30px;
-    gap: 28px;
+    padding: 30px 6.3% 28px;
+    gap: 25px;
   }
 
   .footer-message {
@@ -285,18 +278,17 @@ h1 {
 
   .footer-buttons button {
     min-height: 62px;
-    border-radius: 14px;
-    font-size: clamp(14px, 3.7vw, 17px);
+    font-size: clamp(13px, 3.5vw, 17px);
   }
 }
 
 @media (max-height: 700px) {
   .card {
-    padding-top: 18vh;
+    padding-top: 14vh;
   }
 
   h1 {
-    margin-bottom: 9vh;
+    margin-bottom: 8vh;
   }
 
   .phone {
@@ -306,16 +298,10 @@ h1 {
   .tiles {
     margin-bottom: 8vh;
   }
-
-  .footer {
-    gap: 18px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .tiles.shake {
     animation: none;
   }
-}
+      }
